@@ -1,0 +1,67 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+exports.__esModule = true;
+/**
+ * Created by Home on 3/19/2017.
+ */
+var core_1 = require("@angular/core");
+var AdminInterfaceComponent = (function () {
+    function AdminInterfaceComponent(partnerService, classifierService) {
+        this.partnerService = partnerService;
+        this.classifierService = classifierService;
+        this._services = [];
+        this.serviceCols = [];
+        this._clients = [];
+        this._partners = [];
+    }
+    AdminInterfaceComponent.prototype.ngOnInit = function () {
+        this.partners = this.partnerService.getPartners();
+        this.services = this.classifierService.getServices();
+        this.serviceCols = [];
+    };
+    Object.defineProperty(AdminInterfaceComponent.prototype, "services", {
+        get: function () {
+            return this._services;
+        },
+        set: function (value) {
+            this._services = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AdminInterfaceComponent.prototype, "clients", {
+        get: function () {
+            return this._clients;
+        },
+        set: function (value) {
+            this._clients = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AdminInterfaceComponent.prototype, "partners", {
+        get: function () {
+            return this._partners;
+        },
+        set: function (value) {
+            this._partners = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return AdminInterfaceComponent;
+}());
+AdminInterfaceComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: './admin.component.html',
+        selector: 'admin-interface',
+        styleUrls: ['admin.component.css']
+    })
+], AdminInterfaceComponent);
+exports.AdminInterfaceComponent = AdminInterfaceComponent;
