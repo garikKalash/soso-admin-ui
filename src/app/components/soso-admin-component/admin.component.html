@@ -1,46 +1,58 @@
 <p-tabView>
-    <p-tabPanel header="Partners({{partners.length}})">
-      <p-dataTable [value]="partners" selectionMode="single" [(selection)]="selectedService"
-                   (onRowSelect)="onPartnerSelect($event)" [paginator]="true" rows="15" [responsive]="true">
-        <p-column field="id" header="ID">{{partner?.getId}}</p-column>
-        <p-column field="_telephone" header="Telephone"></p-column>
-        <p-column field="_partner_username" header="Username"></p-column>
-      </p-dataTable>
-
-
-    </p-tabPanel>
-
-
-    <p-tabPanel header="Services({{services.length}})">
-      <p-dataTable [value]="services" selectionMode="single" [(selection)]="selectedService"
-                   (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
-        <p-column field="id" header="ID">{{service?.getId}}</p-column>
-        <p-column field="serviceName_arm" header="Service Name(Arm)">{{service?._serviceName_arm}}</p-column>
-        <p-column field="serviceName_eng" header="Service Name(ENG)">{{service?._serviceName_eng}}</p-column>
-        <p-footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></p-footer>
-      </p-dataTable>
-
-      <p-dialog header="Service Details" [(visible)]="displayServiceAddDialog" [responsive]="true" showEffect="fade" [modal]="true">
-        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="newService">
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="serviceName_armId">Հայերեն</label></div>
-            <div class="ui-grid-col-8"><input type="text" pInputText  [disabled]="!newServiceAdding" id="serviceName_armId" [(ngModel)]="newService.serviceName_arm" field="newService.serviceName_arm"/></div>
-          </div>
-          <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="serviceName_engId">English</label></div>
-            <div class="ui-grid-col-8"><input type="text" pInputText [disabled] = "!newServiceAdding"   id="serviceName_engId" [(ngModel)]="newService.serviceName_eng" field="newService.serviceName_eng"/></div>
-          </div>
+  <p-tabPanel header="Services({{services.length}})">
+    <p-dataTable [value]="services" selectionMode="single" [(selection)]="selectedService"
+                 (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+      <p-column field="id" header="ID">{{service?.getId}}</p-column>
+      <p-column field="serviceName_arm" header="Service Name(Arm)">{{service?._serviceName_arm}}</p-column>
+      <p-column field="serviceName_eng" header="Service Name(ENG)">{{service?._serviceName_eng}}</p-column>
+      <p-footer>
+        <div class="ui-helper-clearfix" style="width:100%">
+          <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()"
+                  label="Add"></button>
         </div>
-        <p-footer>
-          <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button type="button" pButton icon="fa-close" *ngIf="!newServiceAdding" (click)="deleteService()" label="Delete"></button>
-            <button type="button" pButton icon="fa-check" *ngIf="newServiceAdding" (click)="addNewService()" label="Add"></button>
-          </div>
-        </p-footer>
-      </p-dialog>
+      </p-footer>
+    </p-dataTable>
 
-
-    </p-tabPanel>
-    <p-tabPanel header="Clients(5201)">
-    </p-tabPanel>
+    <p-dialog header="Service Details" [(visible)]="displayServiceAddDialog" [responsive]="true" showEffect="fade"
+              [modal]="true">
+      <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="newService">
+        <div class="ui-grid-row"  *ngIf="newServiceAdding">
+          <label>Parent</label><br/>
+          <p-dropdown [options]="_servicesAsSelectItems" [(ngModel)]="newService.parentid" [filter]="true"
+                      [style]="{'width':'150px'}"></p-dropdown>
+        </div>
+        <div class="ui-grid-row" *ngIf="!newServiceAdding">Parent id is: {{newService.parentid}}</div>
+        <div class="ui-grid-row" *ngIf="!newServiceAdding">
+          <img src="{{safeImage(newService._id)}}"
+               style="width: 200px; height: 200px;"/>
+        </div>
+        <div class="ui-grid-row" *ngIf="newServiceAdding">
+        <label class="custom-file-upload">
+          <input name="file" type="file" ng2FileSelect [uploader]="serviceImageUploader"/>
+          <i class="fa fa-plus"></i>
+        </label>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4"><label for="serviceName_armId">Հայերեն</label></div>
+          <div class="ui-grid-col-8"><input type="text" pInputText [disabled]="!newServiceAdding" id="serviceName_armId"
+                                            [(ngModel)]="newService.serviceName_arm"
+                                            field="newService.serviceName_arm"/></div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4"><label for="serviceName_engId">English</label></div>
+          <div class="ui-grid-col-8"><input type="text" pInputText [disabled]="!newServiceAdding" id="serviceName_engId"
+                                            [(ngModel)]="newService.serviceName_eng"
+                                            field="newService.serviceName_eng"/></div>
+        </div>
+      </div>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+          <button type="button" pButton icon="fa-close" *ngIf="!newServiceAdding" (click)="deleteService()"
+                  label="Delete"></button>
+          <button type="button" pButton icon="fa-check" *ngIf="newServiceAdding" (click)="addNewService()"
+                  label="Add"></button>
+        </div>
+      </p-footer>
+    </p-dialog>
+  </p-tabPanel>
 </p-tabView>

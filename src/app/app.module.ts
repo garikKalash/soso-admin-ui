@@ -16,11 +16,15 @@ import {DataConverterService} from "./_commonServices/converter.service";
 import {ButtonModule} from 'primeng/primeng';
 import {AutoCompleteModule} from 'primeng/primeng';
 import {DialogModule} from 'primeng/primeng';
+import {FileSelectDirective} from "ng2-file-upload";
+import {DropdownModule} from "primeng/components/dropdown/dropdown";
+import {ServiceInfoProvider} from "./_commonServices/base-service.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminInterfaceComponent,
+    FileSelectDirective,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +33,7 @@ import {DialogModule} from 'primeng/primeng';
     routing,
     DataTableModule,
     SharedModule,
+    DropdownModule,
     TabViewModule,
     ButtonModule,
     AutoCompleteModule,
@@ -39,7 +44,8 @@ import {DialogModule} from 'primeng/primeng';
     PartnerService,
     ClassifierService,
     ClientService,
-    AuthenticationService
+    AuthenticationService,
+    ServiceInfoProvider
   ],
   bootstrap: [AppComponent]
 })

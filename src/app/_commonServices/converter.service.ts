@@ -26,11 +26,18 @@ export class DataConverterService {
     return <Service>(JSON.parse(serviceJson)["service"]);
   }
 
+  public static getServiceIdfromJson(serviceJson:string):number{
+    return JSON.parse(serviceJson)["service"].id;
+  }
+  public static getServiceUrlfromJson(serviceJson:string):string{
+    return JSON.parse(serviceJson)["service"].url;
+  }
+
   public static servicesFromJson(responseJson: string):Service[] {
     let serviceList: Service[] = [];
     JSON.parse(responseJson)["sosoServices"].forEach((node: any) => {
       serviceList.push(new Service(node.id,
-        node.serviceName_eng, node.serviceName_arm));
+        node.serviceName_eng, node.serviceName_arm,node.imgpath,node.parentid));
     });
     return serviceList;
   }

@@ -1,4 +1,4 @@
-import {BaseService} from "../_commonServices/base-service.service";
+import {ServiceInfoProvider} from "../_commonServices/base-service.service";
 import {Partner} from "../_models/partner.model";
 import {HttpWrap} from "../_commonServices/httpWrap.service";
 import {Response} from "@angular/http";
@@ -11,10 +11,10 @@ import {Observable} from "rxjs";
  * Created by Home on 3/4/2017.
  */
 @Injectable()
-export class PartnerService extends BaseService{
+export class PartnerService{
 
     constructor(private httpWrap: HttpWrap) {
-        super(2);
+
 
     }
 

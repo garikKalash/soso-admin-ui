@@ -1,4 +1,4 @@
-import {BaseService} from "../_commonServices/base-service.service";
+import {ServiceInfoProvider} from "../_commonServices/base-service.service";
 import {HttpWrap} from "../_commonServices/httpWrap.service";
 import {Injectable} from "@angular/core";
 import {DataConverterService} from "../_commonServices/converter.service";
@@ -7,9 +7,9 @@ import {DataConverterService} from "../_commonServices/converter.service";
  */
 
 @Injectable()
-export class AuthenticationService extends BaseService{
+export class AuthenticationService{
   constructor(private dataConverterService: DataConverterService,private httpWrap:HttpWrap){
-        super(3);
+
   }
 
 

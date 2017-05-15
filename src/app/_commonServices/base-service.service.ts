@@ -6,55 +6,22 @@ import {HttpWrap} from "./httpWrap.service";
 import {Response} from "@angular/http";
 import {DataConverterService} from "../_commonServices/converter.service";
 import 'rxjs/add/operator/map';
+import {Observable} from "rxjs";
+import {Injectable} from "@angular/core";
 
+@Injectable()
+export class ServiceInfoProvider {
+  private _serviceId: number;
 
-export class BaseService{
-  private _serviceId:number;
-  private _serviceUrl:string;
-  private _serviceDetails:string;
+  //for live http://pure-badlands-72083.herokuapp.com/
+  private _serviceBaseUrl: string = "http://localhost:9011/";
 
-
-
-  constructor(serviceId:number) {
-    this._serviceId = serviceId;
+  constructor(private  httpWrap: HttpWrap) {
 
   }
 
-  getServiceDetails(baseServiceUri:string):void{
-    this._serviceUrl = this.getDataConverterService().getServiceUrlFromJsonString(baseServiceUri);
-  }
-
-  init(): void {
-     this.prepareServiceDetails();
-  }
-
-  prepareServiceDetails(): void {
-      this.getServiceDetails(this.getDetailsServerUrl(this._serviceId));
-  }
-
-   private getDetailsServerUrl(...queryParams:Array<string|number>) : string {
-    let basePath:string = "http://localhost:9011/serviceDetails";
-    let url = basePath;
-    for (let queryParam of queryParams) {
-      url += "/" + queryParam;
-    }
-    return url;
-  }
-
-  getHttp():HttpWrap{
-    return null;
-  }
-
-  getDataConverterService():DataConverterService{
-    return null;
-  }
-
-  serviceId(): number {
-    return this._serviceId;
-  }
-
-  serviceUrl(): string {
-    return this._serviceUrl;
+  public getDataAboutService(serviceId: number): Observable<string> {
+    return this.httpWrap.get(this._serviceBaseUrl + 'serviceDetails/' + serviceId).map((response: Response) => response.text());
   }
 
 
